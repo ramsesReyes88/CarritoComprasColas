@@ -63,7 +63,7 @@ public class App
             //Se valida si la entrada es un entero
             while (!read.hasNextInt()) 
             {
-                System.out.println("ERROR. Por favor, ingrese un número entero.");
+                System.out.println("ERROR. Por favor, ingrese una opción válida (1-4).");
                 System.out.print("Escoja su opción: ");
                 read.next(); 
             }
@@ -72,7 +72,7 @@ public class App
     
             if (opcion < 1 || opcion > 4) 
             {
-                System.out.println("ERROR. Por favor, seleccione una opción válida.");
+                System.out.println("ERROR. Por favor, ingrese una opción válida (1-4).");
                 enter();
             } 
             else 
@@ -93,7 +93,7 @@ public class App
         System.out.println("\t'------------------------------------------'");
         
         System.out.println("-------------------------------------------------------------");
-        System.out.println("    >>>A continuación, ingrese los datos del carrito: <<<");
+        System.out.println("    >>> A continuación, ingrese los datos del carrito: <<<");
         System.out.println("-------------------------------------------------------------");
         
         String codigo; 
@@ -101,7 +101,7 @@ public class App
         System.out.println("Ingrese solo valores alfanumericos.");
         System.out.print("**Codigo: ");
         codigo = read.next();
-        System.out.println("Seleccione: 1) Carrito normal. 2) Portabebé. 3) Pequeño.");
+        System.out.println("\nSeleccione: 1) Carrito normal. 2) Portabebé. 3) Pequeño.");
         System.out.print("**Tipo: ");
 
         //Se manda el tipo al menu para que se vuelva a evaluar si no supera el limite
@@ -112,16 +112,22 @@ public class App
 
     public static void retirar()    
     {
-        clear();
-        System.out.println("Retirar el ultimo Carrito");
+        clear();     
+        System.out.println("\t.------------------------------------------.");
+        System.out.println("\t|          CARRITO DE SUPERMERCADO         |");
+        System.out.println("\t|      -Agregando un carrito de compra-    |");
+        System.out.println("\t'------------------------------------------'");
         filaCarrito.retirar();
         enter();
     }
 
     public static void imprimir()
     {
-        clear();
-        System.out.println("Lista de Carritos");
+        clear();     
+        System.out.println("\t.------------------------------------------.");
+        System.out.println("\t|          CARRITO DE SUPERMERCADO         |");
+        System.out.println("\t|            -Carritos en total-           |");
+        System.out.println("\t'------------------------------------------'");
         filaCarrito.imprimir();
         enter();
     }
@@ -134,6 +140,7 @@ public class App
     {
         Scanner continuar = new Scanner(System.in);
         continuar.useDelimiter("\n");
+        System.out.println("-------------------------------------------------------------");
         System.out.print("Presione ENTER para continuar... ");
         continuar.next();
     }
