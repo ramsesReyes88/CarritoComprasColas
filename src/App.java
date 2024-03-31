@@ -40,11 +40,9 @@ public class App
         while (opcion != 4);
     }
 
-    public static int menu() 
-    {
+    public static int menu() {
         int opcion;
-        do 
-        {
+        do {
             clear();
             System.out.println("\t.------------------------------------------.");
             System.out.println("\t|          CARRITO DE SUPERMERCADO         |");
@@ -59,32 +57,27 @@ public class App
             System.out.println("4) Salir");
             System.out.println("-------------------------------------------------------------");
             System.out.print("Escoja su opción: ");
-            
-            //Se valida si la entrada es un entero
-            while (!read.hasNextInt()) 
-            {
-                System.out.println("ERROR. Por favor, ingrese una opción válida (1-4).");
-                System.out.print("Escoja su opción: ");
-                read.next(); 
-            }
-            
-            opcion = read.nextInt();
     
-            if (opcion < 1 || opcion > 4) 
-            {
-                System.out.println("ERROR. Por favor, ingrese una opción válida (1-4).");
-                enter();
-            } 
-            else 
-            {
+            // Validación de entrada de usuario
+            if (read.hasNextInt()) {
+                opcion = read.nextInt();
+                if (opcion < 1 || opcion > 4) {
+                    System.out.println("ERROR. Por favor, ingrese una opción válida (1-4).");
+                    enter();
+                    continue;
+                }
                 break;
+            } else {
+                System.out.println("\nError: Debe ingresar un número válido.");
+                read.next();
+                enter();
+                continue;
             }
-        } 
-        while (true);
+        } while (true);
         return opcion;
     }
     
-    public static void agregar() {   
+    public static void agregar() {
         boolean agregarOtroCarrito = true;
     
         while (agregarOtroCarrito) {
@@ -93,21 +86,38 @@ public class App
             System.out.println("\t|          CARRITO DE SUPERMERCADO         |");
             System.out.println("\t|      -Agregando un carrito de compra-    |");
             System.out.println("\t'------------------------------------------'");
-            
+    
             System.out.println("-------------------------------------------------------------");
             System.out.println("    >>> A continuación, ingrese los datos del carrito: <<<");
             System.out.println("-------------------------------------------------------------");
-            
+    
             String codigo; 
             int tipo;
             System.out.println("Ingrese solo valores alfanuméricos.");
             System.out.print("**Codigo: ");
             codigo = read.next();
-            System.out.println("\nSeleccione: 1) Carrito normal. 2) Portabebé. 3) Pequeño.");
-            System.out.print("**Tipo: ");
     
-            // Se manda el tipo al menú para que se vuelva a evaluar si no supera el límite
-            tipo = read.nextInt();   
+            // Preguntar al usuario qué tipo de carrito desea ingresar
+            while (true) {
+                System.out.println("\nSeleccione: 1) Carrito normal. 2) Portabebé. 3) Pequeño.");
+                System.out.print("**Tipo: ");
+                
+                // Validar la entrada del usuario para el tipo de carrito
+                if (read.hasNextInt()) {
+                    tipo = read.nextInt();
+                    if (tipo < 1 || tipo > 3) {
+                        System.out.println("\nError: Debe ingresar una opción válida (1-3).");
+                        continue; 
+                    } else {
+                        break; 
+                    }
+                } else {
+                    System.out.println("\nError: Debe ingresar un número válido para el tipo.");
+                    read.next(); 
+                }
+            }
+            
+            // Ingresar el carrito con el código y tipo especificados
             filaCarrito.ingresarCarrito(codigo, tipo);
             
             // Preguntar al usuario si desea agregar otro carrito
@@ -123,7 +133,7 @@ public class App
         }
     
         enter(); 
-    }
+    }//agregar
     
 
     public static void retirar() {
@@ -144,18 +154,27 @@ public class App
             System.out.println("4. Salir");
             System.out.print("Opción: ");
     
-            tipo = read.nextInt();
-    
-            if (tipo >= 1 && tipo <= 3) {
-                filaCarrito.retirar(tipo);
-                enter();
-            } else if (tipo == 4) {
-                return; 
+            // Validación de entrada de usuario
+            if (read.hasNextInt()) {
+                tipo = read.nextInt();
+                if (tipo >= 1 && tipo <= 3) {
+                    filaCarrito.retirar(tipo);
+                    enter();
+                } else if (tipo == 4) {
+                    return; 
+                } else {
+                    System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
+                    enter();
+                }
             } else {
-                System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
+                System.out.println("\nError: Debe ingresar un número válido.");
+                read.next(); 
+                enter();
+                continue;
             }
         } while (true);
-    }
+    }//retirar
+    
     
     
 
@@ -165,24 +184,33 @@ public class App
         System.out.println("\t|          CARRITO DE SUPERMERCADO         |");
         System.out.println("\t|            -Carritos en total-           |");
         System.out.println("\t'------------------------------------------'");
-        
+    
         System.out.println("Seleccione el tipo de carrito a imprimir:");
         System.out.println("1. Normales");
         System.out.println("2. Portabebés");
         System.out.println("3. Pequeños");
         System.out.println("4. Salir");
         System.out.print("Opción: ");
-
-        int tipo = read.nextInt();
-
-        if (tipo == 4) {
-            return; 
+    
+        int tipo;
+    
+        // Validación de entrada de usuario
+        if (read.hasNextInt()) {
+            tipo = read.nextInt();
+            if (tipo == 4) {
+                return; 
+            }
+            clear();
+            filaCarrito.imprimir(tipo);
+            enter();
+            clear(); 
+            imprimir();
+        } else {
+            System.out.println("\nError: Debe ingresar un número válido.");
+            read.next(); 
+            enter();
+            imprimir();
         }
-        clear();
-        filaCarrito.imprimir(tipo);
-        enter();
-        clear(); 
-        imprimir();
     }
     
     
