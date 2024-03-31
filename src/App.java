@@ -1,28 +1,50 @@
+/*
+    Arce Llamas Jesus Irvin
+    Higuera Sanchez Dulce Mariela
+    Reyes Contreras Ramses
+    Rodriguez Cacho Ximena Charleene 
+    ---------------------------------
+    Marzo/31/2024
+    TSU-DSM-4A 
+    Practica #9
+*/
+
 import java.util.Scanner;
+import lista.*;
 
-import lista.Pila;
-
-public class App {
+public class App 
+{
+    //Scanner de manera global
     static Scanner read = new Scanner(System.in);
+    //Creacion de la fila de carritos
     static Pila filaCarrito = new Pila();
-    public static void main(String[] args) throws Exception {
-       int opcion;
-       do {
-        opcion = menu();
-        switch (opcion) {
-            case 1:
-                agregar();
-                break;
-            case 2:
-                retirar();
-                break;
-                
-            case 3:
-                imprimir();
-                break;
+    public static void main(String[] args) throws Exception 
+    {
+        
+        System.out.println("\t.------------------------------------------.");
+        System.out.println("\t|                  CARRITO DE              |");
+        System.out.println("\t|                 SUPERMERCADO             |");
+        System.out.println("\t'------------------------------------------'");
+        int opcion;
+        do 
+        {
+            System.out.println("-------------------------------------------------------------");
+            System.out.println("\nBienvenid@, elige una opción:");
+            opcion = menu();
+            switch (opcion) {
+                case 1:
+                    agregar();
+                    break;
+                case 2:
+                    retirar();
+                    break;
+                    
+                case 3:
+                    imprimir();
+                    break;
+            }
+        } while (opcion != 4);
         }
-    } while (opcion != 4);
-    }
 
     public static int menu(){
         int opcion;

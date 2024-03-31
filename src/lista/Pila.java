@@ -1,58 +1,89 @@
 package lista;
-
-public class Pila {
+ 
+public class Pila 
+{
     int max = 20;
     int cima = 0;
+    //Clase donde se va a hacer el array de carritos
     Carritos[] carrito = new Carritos[max];
 
-    public Pila() {
-        for (int i = 0; i < max; i++) {
+    /*------------------------------------------------------------------------------*/
+    /*                                    CONSTRUCTOR                               */
+    /*------------------------------------------------------------------------------*/
+    public Pila() 
+    {
+        for (int i = 0; i < max; i++) 
+        {
             carrito[i] = new Carritos();
         }
     }
 
-    /* Cantidad Maxima de Elementos que se pueden agregar */
+    
+    /*------------------------------------------------------------------------------*/
+    /*            #1: Cantidad Maxima de Elementos que se pueden agregar            */                      
+    /*------------------------------------------------------------------------------*/
 
-    public int maxElementos() {
+    public int maxElementos() 
+    {
         return max;
     }
 
-    /* Cantidad de elementos agregados */
-
-    public int numElementos() {
+    /*------------------------------------------------------------------------------*/
+    /*              #2: METODO QUE DEVUELVE LA CANTIDAD DE ELEMENTOS AGREGADOS      */               
+    /*------------------------------------------------------------------------------*/
+    public int numElementos() 
+    {
         return cima;
     }
 
-    /* Saber si la pila esta llena */
-
-    public boolean pilaLlena() {
+    /*------------------------------------------------------------------------------*/
+    /*                   #3: METODO QUE INDICA SI LA PILA ESTA LLENA                 */               
+    /*------------------------------------------------------------------------------*/
+    public boolean pilaLlena() 
+    {
         return cima >= max;
     }
 
-    /*Saber si la pila esta vacia */
-    public boolean pilaVacia() {
+    /*------------------------------------------------------------------------------*/
+    /*                     #4: METODO QUE INDICA SI LA PILA ESTA VACIA              */               
+    /*------------------------------------------------------------------------------*/
+    public boolean pilaVacia() 
+    {
         return cima == 0;
     }
 
-    public void ingresarCarrito(String codigo, String tipo) {
-        if (pilaVacia()) {
+    
+    /*------------------------------------------------------------------------------*/
+    /*                   #5: METODO PARA AGREGAR CARRITOS A LA PILA                 */               
+    /*------------------------------------------------------------------------------*/
+    public void ingresarCarrito(String codigo, String tipo) 
+    {
+        if (pilaVacia()) 
+        {
             carrito[cima].setCodigo(codigo);
             carrito[cima].setTipo(tipo);
             cima++;
 
-            if (pilaLlena()) {
+            if (pilaLlena()) 
+            {
                 System.out.println("¡La fila de carritos se ha llenado!");
             }
         } else {
             System.out.println("No hay espacio disponible para agregar más carritos.");
         }
-    }//agregar
+    }//ingresar
 
-    /* Método para retirar un carrito */
-    public void retirar() {
-        if (pilaVacia()) {
+    /*------------------------------------------------------------------------------*/
+    /*                  #6: METODO PARA RETIRRR CARRITOS DE LA PILA                 */               
+    /*------------------------------------------------------------------------------*/
+    public void retirar() 
+    {
+        if (pilaVacia()) 
+        {
             System.out.println("No hay paquetes para retirar");
-        } else {
+        } 
+        else 
+        {
             cima--;
             System.out.println("Carrito retirado");
             System.out.println("Codigo       " + carrito[cima].getCodigo());
@@ -62,16 +93,26 @@ public class Pila {
         }
     }//retirar
 
-    /* Método para mostrar el total de carritos disponibles */
-    public void imprimir() {
-        if (pilaVacia()) {
+    
+    /*------------------------------------------------------------------------------*/
+    /*           #7: METODO PARA MOSTRAR EL TOTAL DE CARRITOS DISPONIBLES           */               
+    /*------------------------------------------------------------------------------*/
+    public void imprimir() 
+    {
+        if (pilaVacia()) 
+        {
             System.out.println("Actualmente no hay carritos en ninguna fila");
-        } else {
+        } else 
+        {
             System.out.println("Codigo \t Tipo");
-            for(int i = 0;i<cima;i++){
+            for(int i = 0;i<cima;i++)
+            {
                 System.out.println(carrito[i].getCodigo());
                 System.out.println("\t" + carrito[i].getTipo());
             }
         }
     }//imprimir
+
+
+    
 }
