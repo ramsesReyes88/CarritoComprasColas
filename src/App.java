@@ -84,65 +84,107 @@ public class App
         return opcion;
     }
     
-    public static void agregar()
-    {   
-        clear();     
-        System.out.println("\t.------------------------------------------.");
-        System.out.println("\t|          CARRITO DE SUPERMERCADO         |");
-        System.out.println("\t|      -Agregando un carrito de compra-    |");
-        System.out.println("\t'------------------------------------------'");
-        
-        System.out.println("-------------------------------------------------------------");
-        System.out.println("    >>> A continuación, ingrese los datos del carrito: <<<");
-        System.out.println("-------------------------------------------------------------");
-        
-        String codigo; 
-        int tipo;
-        System.out.println("Ingrese solo valores alfanumericos.");
-        System.out.print("**Codigo: ");
-        codigo = read.next();
-        System.out.println("\nSeleccione: 1) Carrito normal. 2) Portabebé. 3) Pequeño.");
-        System.out.print("**Tipo: ");
-
-        //Se manda el tipo al menu para que se vuelva a evaluar si no supera el limite
-        tipo = read.nextInt();   
-        filaCarrito.ingresarCarrito(codigo, tipo);
+    public static void agregar() {   
+        boolean agregarOtroCarrito = true;
+    
+        while (agregarOtroCarrito) {
+            clear();     
+            System.out.println("\t.------------------------------------------.");
+            System.out.println("\t|          CARRITO DE SUPERMERCADO         |");
+            System.out.println("\t|      -Agregando un carrito de compra-    |");
+            System.out.println("\t'------------------------------------------'");
+            
+            System.out.println("-------------------------------------------------------------");
+            System.out.println("    >>> A continuación, ingrese los datos del carrito: <<<");
+            System.out.println("-------------------------------------------------------------");
+            
+            String codigo; 
+            int tipo;
+            System.out.println("Ingrese solo valores alfanuméricos.");
+            System.out.print("**Codigo: ");
+            codigo = read.next();
+            System.out.println("\nSeleccione: 1) Carrito normal. 2) Portabebé. 3) Pequeño.");
+            System.out.print("**Tipo: ");
+    
+            // Se manda el tipo al menú para que se vuelva a evaluar si no supera el límite
+            tipo = read.nextInt();   
+            filaCarrito.ingresarCarrito(codigo, tipo);
+            
+            // Preguntar al usuario si desea agregar otro carrito
+            System.out.print("¿Desea agregar otro carrito? (S/N): ");
+            String respuesta = read.next().toUpperCase();
+            while (!respuesta.equals("S") && !respuesta.equals("N")) {
+                System.out.println("Error: Respuesta inválida. Por favor, ingrese 'S' o 'N'.");
+                System.out.print("¿Desea agregar otro carrito? (S/N): ");
+                respuesta = read.next().toUpperCase();
+            }
+    
+            agregarOtroCarrito = respuesta.equals("S");
+        }
+    
         enter(); 
     }
+    
 
-    public static void retirar() 
-    {
+    public static void retirar() {
         clear();
         System.out.println("\t.------------------------------------------.");
         System.out.println("\t|          CARRITO DE SUPERMERCADO         |");
         System.out.println("\t|      - Retirando un carrito de compra - |");
         System.out.println("\t'------------------------------------------'");
     
-        System.out.println("Seleccione el tipo de fila a retirar:");
-        System.out.println("1. Normales");
-        System.out.println("2. Portabebés");
-        System.out.println("3. Pequeños");
-        System.out.print("Opción: ");
+        int tipo;
     
-        Scanner scanner = new Scanner(System.in);
-        int tipo = scanner.nextInt();
+        do {
+            clear();
+            System.out.println("Seleccione el tipo de fila a retirar:");
+            System.out.println("1. Normales");
+            System.out.println("2. Portabebés");
+            System.out.println("3. Pequeños");
+            System.out.println("4. Salir");
+            System.out.print("Opción: ");
     
-        filaCarrito.retirar(tipo);
-        enter();
+            tipo = read.nextInt();
+    
+            if (tipo >= 1 && tipo <= 3) {
+                filaCarrito.retirar(tipo);
+                enter();
+            } else if (tipo == 4) {
+                return; 
+            } else {
+                System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
+            }
+        } while (true);
     }
     
+    
 
-    public static void imprimir()
-    {
+    public static void imprimir() {
         clear();     
         System.out.println("\t.------------------------------------------.");
         System.out.println("\t|          CARRITO DE SUPERMERCADO         |");
         System.out.println("\t|            -Carritos en total-           |");
         System.out.println("\t'------------------------------------------'");
-        filaCarrito.imprimir();
-        enter();
-    }
+        
+        System.out.println("Seleccione el tipo de carrito a imprimir:");
+        System.out.println("1. Normales");
+        System.out.println("2. Portabebés");
+        System.out.println("3. Pequeños");
+        System.out.println("4. Salir");
+        System.out.print("Opción: ");
 
+        int tipo = read.nextInt();
+
+        if (tipo == 4) {
+            return; 
+        }
+        clear();
+        filaCarrito.imprimir(tipo);
+        enter();
+        clear(); 
+        imprimir();
+    }
+    
     
     /*------------------------------------------------------------------------------*/
     /*                METODO AUX. 1 PARA SEGUIR EN PANTALLA CON ENTER               */               
