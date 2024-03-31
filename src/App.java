@@ -110,16 +110,27 @@ public class App
         enter(); 
     }
 
-    public static void retirar()    
+    public static void retirar() 
     {
-        clear();     
+        clear();
         System.out.println("\t.------------------------------------------.");
         System.out.println("\t|          CARRITO DE SUPERMERCADO         |");
-        System.out.println("\t|      -Agregando un carrito de compra-    |");
+        System.out.println("\t|      - Retirando un carrito de compra - |");
         System.out.println("\t'------------------------------------------'");
-        filaCarrito.retirar();
+    
+        System.out.println("Seleccione el tipo de fila a retirar:");
+        System.out.println("1. Normales");
+        System.out.println("2. Portabebés");
+        System.out.println("3. Pequeños");
+        System.out.print("Opción: ");
+    
+        Scanner scanner = new Scanner(System.in);
+        int tipo = scanner.nextInt();
+    
+        filaCarrito.retirar(tipo);
         enter();
     }
+    
 
     public static void imprimir()
     {
