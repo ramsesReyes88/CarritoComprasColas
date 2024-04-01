@@ -153,6 +153,7 @@ public class Pila
     
             System.out.println("\t-Código: " + codigo);
             System.out.println("\t-Tipo de carrito: " + tipoCarrito);
+            System.out.println("\t-Posicion en Fila: " + (cima + 1));
     
         } else {
             System.out.println("No hay espacio disponible para agregar más carritos.");
@@ -166,7 +167,6 @@ public class Pila
         int cimaActual;
         Carritos[] filaCarritos;
         String tipoFila;
-    
         switch (tipo) {
             case 1:
                 filaCarritos = carritosNormales;
@@ -187,21 +187,21 @@ public class Pila
                 System.out.println("Tipo de fila no válido.");
                 return;
         }
-    
+        
         if (cimaActual > 0) {
             // Muestra el carrito que se va a retirar
             System.out.println(" ");
             System.out.println("-------------------------------------------------------------\n");
-            System.out.println("      Carrito a retirar: Código: " + filaCarritos[cimaActual - 1].getCodigo() + ", Tipo: " + filaCarritos[cimaActual - 1].getTipo());
+            System.out.println("      Carrito a retirar: Código: " + filaCarritos[cimaActual - 1].getCodigo() + ", Tipo: " + filaCarritos[cimaActual - 1].getTipo() + ", Posicion en Fila: " + (cimaActual));
             System.out.println("-------------------------------------------------------------\n");
             System.out.println(" ");
-    
+        
             Scanner scanner = new Scanner(System.in);
             String respuesta;
-    
+        
             System.out.println("¿Realmente desea retirar este carrito? (S/N)");
             System.out.print("Respuesta: ");
-    
+        
             while (true) {
                 respuesta = scanner.next().toUpperCase();
                 if (respuesta.equals("S") || respuesta.equals("N")) {
@@ -211,9 +211,20 @@ public class Pila
                     System.out.print("Respuesta: ");
                 }
             }
-    
+        
             if (respuesta.equals("S")) {
                 cimaActual--;
+                switch (tipo) {
+                    case 1:
+                        cimaNormal = cimaActual;
+                        break;
+                    case 2:
+                        cimaPortabebes = cimaActual;
+                        break;
+                    case 3:
+                        cimaPequenos = cimaActual;
+                        break;
+                }
                 System.out.println("-------------------------------------------------------------");
                 System.out.println("Carrito retirado correctamente.");
                 System.out.println("-------------------------------------------------------------");
@@ -221,11 +232,11 @@ public class Pila
                 System.out.println("Operación cancelada. No se retiró ningún carrito.");
                 return;
             }
-    
+        
             if (cimaActual > 0) {
                 System.out.println("¿Desea retirar otro carrito? (S/N)");
                 System.out.print("Respuesta: ");
-    
+        
                 while (true) {
                     respuesta = scanner.next().toUpperCase();
                     if (respuesta.equals("S") || respuesta.equals("N")) {
@@ -235,7 +246,7 @@ public class Pila
                         System.out.print("Respuesta: ");
                     }
                 }
-    
+        
                 if (respuesta.equals("S")) {
                     retirar(tipo); // Llama recursivamente al método retirar para retirar otro carrito
                 } else {
@@ -251,6 +262,7 @@ public class Pila
             return;
         }
     }//retirar
+    
     
     /*------------------------------------------------------------------------------*/
     /*           #7: METODO PARA MOSTRAR EL TOTAL DE CARRITOS DISPONIBLES           */               
@@ -290,19 +302,17 @@ public class Pila
     /*------------------------------------------------------------------------------*/
     /*               #8: METODO AUXILIAR PARA MOSTRAR CARRITOS POR TIPO             */               
     /*------------------------------------------------------------------------------*/
-    private void imprimirFila(Carritos[] filaCarritos, int cimaActual) 
-    {
-        if (cimaActual == 0) 
-        {
+    private void imprimirFila(Carritos[] filaCarritos, int cimaActual) {
+        if (cimaActual == 0) {
             System.out.println("No hay carritos en esta fila.");
             return;
         }
-        System.out.println("---------------------------------------------");
-        System.out.println("|\tCódigo       |  \tTipo        |");
-        System.out.println("---------------------------------------------");
-        for (int i = 0; i < cimaActual; i++) 
-        {
-            System.out.printf("| %-10s\t     | %s\n", filaCarritos[i].getCodigo(), filaCarritos[i].getTipo());
+        System.out.println("----------------------------------------------------------------");
+        System.out.println("|\tCódigo       |  \tTipo    |   \tPosicion     |");
+        System.out.println("----------------------------------------------------------------");
+        for (int i = 0; i < cimaActual; i++) {
+            int posicion = cimaActual - i;
+            System.out.printf("| %-10s\t     | %s\t\t| %d\n", filaCarritos[cimaActual - 1 - i].getCodigo(), filaCarritos[cimaActual - 1 - i].getTipo(), posicion);
         }
     }
 

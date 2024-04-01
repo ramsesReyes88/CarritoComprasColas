@@ -106,12 +106,14 @@ public class App
                 if (read.hasNextInt()) {
                     tipo = read.nextInt();
                     if (tipo < 1 || tipo > 3) {
+                        clear();
                         System.out.println("\nError: Debe ingresar una opción válida (1-3).");
                         continue; 
                     } else {
                         break; 
                     }
                 } else {
+                    clear();
                     System.out.println("\nError: Debe ingresar un número válido para el tipo.");
                     read.next(); 
                 }
