@@ -6,7 +6,7 @@
     ---------------------------------
     Marzo/31/2024
     TSU-DSM-4A 
-    Practica #9
+    Practica #9 - Pilas
 */
 
 import java.util.Scanner;
